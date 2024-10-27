@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TruthBot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../src/logo/favicon 1.png" style="border-radius: 100px;">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../src/style.css">
+
+    <style>
+        .sidebar {
+            height: 100vh;
+            background-color: #ffffff;
+            margin-top: -20px;
+            width: 10vw;
+        }
+        
+        .nav-item {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .nav-item a {
+            color: black;
+        }
+
+        .active {
+            background-color: #BCC4D2;
+            border: 1px solid rgba(0, 136, 255, 0.711);
+            border-radius: 5px;
+        }
+
+        .content-area {
+            background-color: #f8f9fa; /* Light gray background */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            max-width: 800px; /* Set a max width for the content area */
+            margin: 20px auto; /* Center the content area */
+        }
+
+        .flex-container {
+            display: flex;
+            gap: 20px; /* Space between input and output containers */
+        }
+
+        /* Input and output container styling */
+        .input-container,
+        .output-container {
+            flex: 1; /* Allow both containers to take equal width */
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Input container specific styling */
+        .input-container h1 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .input-container p {
+            font-size: 1rem;
+            color: var(--text-color, #555);
+        }
+
+        .input-container label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-top: 1rem;
+        }
+
+        .input-container textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            color: #333;
+        }
+
+        .input-container input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .input-container input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        /* Loading bar styling */
+        .loading-bar {
+            height: 5px;
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .loading-bar-progress {
+            height: 100%;
+            width: 0;
+            background-color: #28a745;
+            animation: loading 2s infinite;
+        }
+
+        @keyframes loading {
+            0% { width: 0; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        /* Output container styling */
+        .output-container h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .output-container ul {
+            padding-left: 20px;
+            list-style-type: disc;
+            color: #555;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+
+<body class="light-mode">
+    <nav class="navbar navbar-expand-lg navbar-light border-bottom border-1">
+        <div class="container-fluid">
+            <a class="navbar-brand justify-content-center " href="#">
+                <img src="../src/logo/logo.jpg" alt="Avatar Logo" style="width:150px;">
+            </a>
+            <div class="collapse navbar-collapse justify-content-end">
+                <!-- Toggle Switch -->
+                <label class="switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid hidden-mobile">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar border border-1">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <img src="../src/icon/summarization-logo.png" alt="">
+                            Summarizer
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grammar Checker</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">AI Detector</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Summarizer</a>
+                    </li>
+                    <!-- Add more sidebar items -->
+                </ul>
+            </div>
+            <div class="col-md-8 content-area">
+                <div class="flex-container">
+                    <div class="input-container">
+                        <h1>News Summarizer</h1>
+                        <p style="color:var(--text-color); margin-bottom: 1.5rem;">Enter a news article to summarize</p>
+                        <form method="POST" id="summarize-form">
+                            <label for="text">Enter your text:</label>
+                            <textarea name="text" id="text" required></textarea>
+                            <input type="submit" value="Summarize">
+                        </form>
+                        <div class="loading-bar">
+                            <div class="loading-bar-progress"></div>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h2>Summary</h2>
+                        <ul id="summary-text"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container visible-mobile" style="margin-top: -20px; background-color: #ffffff;">
+        <div class="container" style="padding: 0; overflow-x: auto;">
+            <div class="row" style="display: flex; white-space: nowrap;">
+                <div class="col" style="flex: 0 0 20%; text-align: center;">
+                    <a class="nav-link active" href="#" style="font-size: 10px;">
+                        <img src="../src/icon/summarization-logo.png" style="width: 40px;" alt="">
+                        Summarizer
+                    </a>
+                </div>
+                <div class="col" style="flex: 0 0 20%; text-align: center;">
+                    <a class="nav-link" href="#" style="font-size: 10px;">
+                        <img src="../src/icon/summarization-logo.png" style="width: 40px;" alt="">
+                        Summarizer
+                    </a>
+                </div>
+                <div class="col" style="flex: 0 0 20%; text-align: center;">
+                    <a class="nav-link" href="#" style="font-size: 10px;">
+                        <img src="../src/icon/summarization-logo.png" style="width: 40px;" alt="">
+                        Summarizer
+                    </a>
+                </div>
+                <div class="col" style="flex: 0 0 20%; text-align: center;">
+                    <a class="nav-link" href="#" style="font-size: 10px;">
+                        <img src="../src/icon/summarization-logo.png" style="width: 40px;" alt="">
+                        Summarizer
+                    </a>
+                </div>
+                <div class="col" style="flex: 0 0 20vw; text-align: center;">
+                    <a class="nav-link" href="#" style="font-size: 10px;">
+                        <img src="../src/icon/summarization-logo.png" style="width: 40px;" alt="">
+                        Summarizer
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-lg-start">
+        <div class="container p-4">
+            <div class="row">
+                <!-- About Us Section -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="text-uppercase">About Us</h5>
+                    <p>
+                        We provide cutting-edge solutions for analyzing news, web insights, sentiment
+                        analysis, and more.
+                    </p>
+                </div>
+
+                <!-- Useful Links Section -->
+                <div class="col-lg-4 col-md-6 mb-4 footer-links">
+                    <h5 class="text-uppercase">Useful Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Report</a></li>
+                        <li><a href="#">FakeNews Analysis</a></li>
+                        <li><a href="#">AI Plagiarism</a></li>
+                        <li><a href="#">Text Summarization</a></li>
+                        <li><a href="#">Sentiment Analysis</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Section -->
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <h5 class="text-uppercase">Contact</h5>
+                    <p><i class="fas fa-map-marker-alt"></i> 1234 Street, City, Country</p>
+                    <p><i class="fas fa-envelope"></i> email@example.com</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="p-3">
+            © 2024 TruthBot | Design by PB
+
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
+    <script src="../index.js">
+
+        
+function startSummarizing(event) {
+event.preventDefault(); // Prevent the form from submitting
+
+// Show the loading bar
+const loadingBar = document.getElementById('loading-bar');
+loadingBar.style.display = 'block';
+
+// Simulate a delay for summarizing (e.g., 3 seconds)
+setTimeout(() => {
+    // Hide the loading bar
+    loadingBar.style.display = 'none';
+
+    // Display the result (Example summary text)
+    const summaryText = document.getElementById('summary-text');
+    summaryText.innerHTML = '<li>Example summary text goes here.</li>';
+}, 3000); // 3000ms = 3 seconds delay for demonstration
+}
+
+    </script>
+</body>
+
+</html>   
