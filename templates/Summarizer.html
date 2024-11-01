@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,79 +8,103 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/style.css">
     <style>
-        :root {
-            --primary-color: #FFFFFF;
-            --secondary-color: #007BFF;
-            --background-color: #F0F0F0;
-            --text-color: #333333;
-            --card-bg: rgba(255, 255, 255, 0.9);
-            --team-bg: #F8F9FA;
-            --positive-color: #4CAF50;
-            --negative-color: #ff4d4d;
-            --neutral-color: #FF5733;
-        }
-
-        [data-theme="dark"] {
-            --primary-color: #1A1A1A;
-            --secondary-color: #33ff8f;
-            --background-color: #121212;
-            --text-color: #EAEAEA;
-            --card-bg: rgba(40, 40, 40, 0.9);
-            --team-bg: #1A1A1A;
-            --positive-color: #4CAF50;
-            --negative-color: #ff4d4d;
-            --neutral-color: #FF6F61;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
         .sidebar {
             height: 100vh;
-            background-color: var(--card-bg);
-            margin-top: 20px; /* Add margin to push it down */
-            width: 10vw;
+            background-color: var(--primary-color);
+            width: 12vw;
             border-right: 1px solid rgba(0, 0, 0, 0.1);
+            position: fixed;
+            z-index: 1000; 
+      
         }
 
         .nav-item {
             margin-top: 10px;
-            text-align: center;
+            margin-left: 10px;
         }
 
         .nav-item a {
-            color: var(--text-color);
+
             text-decoration: none;
             padding: 10px;
             display: block;
         }
 
         .active {
-            background-color: #BCC4D2;
-             background-color: rgba(0, 123, 255, 0.5); /* Translucent blue background */
-            border-radius: 5px;
+            background-color: var(--background-light);
+            border-radius: 100px 0px 0px 100px;
+            width: 11vw;
+            color: var(--sidebar-active-text-color);
+            font-weight: 700;
+
         }
-        .active a {
-            color: white !important;
-        }
+
 
         .content-area {
             background-color: var(--background-color);
             border-radius: 8px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 20px auto;
-            margin-top: 20px; /* Add margin to push it down */
+            padding-left: 150px;
+            padding-top: 60px;
+            max-width: 1400px;
+            margin: 40px auto;
+            margin-top: 40px;
+            /* Add margin to push it down */
         }
 
         .flex-container {
             display: flex;
-            gap: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 0px 0px 20px 20px;
+        }
+
+        .put-container {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.324);
+            border-radius: 20px 20px 0px 0px;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+            background-color: var(--card-bg);
+            padding: 10px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .trash-icon {
+            cursor: pointer;
+            color: var(--sidebar-active-text-color);
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        .paste-icon {
+            border-radius: 10px;
+            border: #222A49 1px solid;
+            padding: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #133E87;
+            font-size: 24px;
+            cursor: pointer;
+            pointer-events: none;
+            /* Ensures that the icon does not interfere with typing */
+        }
+
+        /* Add padding to prevent text from overlapping the icon */
+        #text {
+            padding: 20px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .input-container,
@@ -87,8 +112,32 @@
             flex: 1;
             padding: 20px;
             background-color: var(--card-bg);
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: var(--sidebar-active-text-color);
+            border-radius: 8px 0px 0px 8px;
+            height: 700px;
+           
+        }
+
+        .output-container {
+            border-radius: 0px 8px 8px 0px;
+            border-left: 1px solid rgba(0, 0, 0, 0.324);
+            display: flex;
+            flex-direction: column;
+            /* Add this line */
+            justify-content: space-between;
+            /* Add this line to push content to the top and bottom */
+            height: 700px;
+            /* Keep or adjust this as necessary */
+            padding-top: 50px;
+            color: var(--sidebar-active-text-color);
+        }
+
+
+        .word-sentence-count {
+            margin-top: auto;
+            /* This pushes it to the bottom */
+            color: var(--sidebar-active-text-color);
+            /* Use your existing text color variable */
         }
 
         .input-container h1 {
@@ -99,42 +148,53 @@
 
         .input-container textarea {
             width: 100%;
-            height: 300px;
+            height: 500px;
             padding: 0.75rem;
             margin-bottom: 1rem;
-            border: 1px solid var(--background-color);
+            border: 0px solid var(--background-color);
             border-radius: 4px;
-            font-size: 1rem;
-            resize: vertical;
+            font-size: 20px;
+            resize: none;
             background-color: var(--background-color);
-            color: var(--text-color);
+            font-weight: 400;
+            color: var(--sidebar-active-text-color);
+            outline: none;
         }
 
         .input-container input[type="submit"] {
-            width: 100%;
+            margin-top: 90px;
+            width: 20%;
             padding: 12px;
             font-size: 1rem;
             font-weight: bold;
-            background-color: #4CAF50; /* Green background color */
-            color: white; /* White text color */
+            background-color: #4CAF50;
+            /* Green background color */
+            color: white;
+            /* White text color */
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            margin-top: 1rem;
+            display: flex;
+            float: right;
+
         }
 
         .input-container input[type="submit"]:hover {
-            background-color: #45a049; /* Darker green on hover */
-            opacity: 0.9; /* Slightly reduce opacity on hover */
+            background-color: #45a049;
+            /* Darker green on hover */
+            opacity: 0.9;
+            /* Slightly reduce opacity on hover */
         }
 
         .loading-bar {
+            padding-top: 2px;
             width: 100%;
             height: 4px;
             background-color: var(--background-color);
             overflow: hidden;
             display: none;
-            margin-bottom: 1rem;
+      
+            margin-bottom: 2rem;
         }
 
         .loading-bar-progress {
@@ -145,26 +205,35 @@
         }
 
         @keyframes loading {
-            0% { width: 0; }
-            50% { width: 100%; }
-            100% { width: 0; }
+            0% {
+                width: 0;
+            }
+
+            50% {
+                width: 100%;
+            }
+
+            100% {
+                width: 0;
+            }
         }
 
         #summary-text {
             list-style-type: none;
             padding: 0;
+              font-size: 1.3rem;
         }
 
         #summary-text li {
             margin-bottom: 0.5rem;
             position: relative;
             padding-left: 1.5rem;
-            color: var(--text-color);
+            color: var(--sidebar-active-text-color);
         }
 
         #summary-text li::before {
             content: "\2022";
-            color: var(--secondary-color);
+            color: var(--sidebar-active-text-color);
             font-weight: bold;
             position: absolute;
             left: 0;
@@ -207,11 +276,11 @@
             border-radius: 50%;
         }
 
-        input:checked + .slider {
+        input:checked+.slider {
             background-color: var(--secondary-color);
         }
 
-        input:checked + .slider:before {
+        input:checked+.slider:before {
             transform: translateX(26px);
         }
 
@@ -219,22 +288,26 @@
             .flex-container {
                 flex-direction: column;
             }
+
             .sidebar {
                 display: none;
             }
+
             .content-area {
                 margin: 10px;
             }
         }
     </style>
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light border-bottom border-1">
+
+<body class="light-mode">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light border-bottom border-1" >
         <div class="container-fluid">
-            <a class="navbar-brand justify-content-center " href="/">
-                <img src="../static/logo/logo.jpg" alt="Avatar Logo" style="width:150px;">
+            <a class="navbar-brand" href="#">
+                <img src="../static/logo/logo2.png" alt="Avatar Logo" style="width:150px; margin-left: 10px;">
             </a>
             <div class="collapse navbar-collapse justify-content-end">
+                <!-- Toggle Switch -->
                 <label class="switch">
                     <input type="checkbox" id="themeToggle">
                     <span class="slider"></span>
@@ -242,87 +315,291 @@
             </div>
         </div>
     </nav>
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2 sidebar">
                 <ul class="nav flex-column">
-                    <li class="nav-item">
+
+                    <li class="nav-item" style="font-size: larger;">
+                        <a class="nav-link" href="#" style=" color:var(--sidebar-inactive-text-color)">
+                            <i class="fa-solid fa-file-lines"></i>
+                            Reports
+                        </a>
+                    </li>
+                    <li class="nav-item" style="font-size: larger;">
+                        <a class="nav-link" href="#" style=" color:var(--sidebar-inactive-text-color)">
+                            <i class="fas fa-search"></i>
+                            Fake Detection
+                        </a>
+                    </li>
+                    <li class="nav-item" style="font-size: larger;">
                         <a class="nav-link active" href="#">
-                            <i class="fas fa-file-alt"></i>
+                            <i class="fas fa-file-alt fa-65x"></i>
                             Summarizer
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-check-circle"></i>
-                            Grammar Checker
+                    <li class="nav-item" style="font-size: larger;">
+                        <a class="nav-link" href="#" style=" color:var(--sidebar-inactive-text-color)">
+                            <i class="fas fa-chart-bar"></i>
+                            Sentiment Analysis
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-robot"></i>
-                            AI Detector
+                    <li class="nav-item" style="font-size: larger;">
+                        <a class="nav-link" href="#" style=" color:var(--sidebar-inactive-text-color)">
+                            <i class="fas fa-check-circle "></i>
+                            Plagiarism Check
+                        </a>
+                    </li>
+                    <li class="nav-item" style="font-size: larger;">
+                        <a class="nav-link" href="#" style=" color:var(--sidebar-inactive-text-color)">
+                            <i class="fa-brands fa-flickr"></i>
+                            ClickBait Tool
                         </a>
                     </li>
                 </ul>
             </div>
-            <div class="col-md-10 content-area">
-                <div class="flex-container">
+            <div class="col-md-10 content-area" >
+                <div class="put-container">
+                    <div class="trash-icon">
+                        <i class="fa-solid fa-trash" onclick="deleteContent()" style="font-size: 24px;"></i>
+                    </div>
+                </div>
+                <div class="flex-container content-to-delete">
                     <div class="input-container">
-                        <h1>News Summarizer</h1>
-                        <p>Enter a news article to summarize</p>
+                        <!-- Paste Icon -->
+                        <i class="fa-solid fa-paste paste-icon" style="font-size: 24px;">
+                            <span class="paste-text" style="font-size: 14px; margin-top: 5px;">Paste text</span>
+                        </i>
+            
                         <form id="summarize-form">
-                            <label for="text">Enter your text:</label>
-                            <textarea name="text" id="text" required></textarea>
+                            <textarea name="text" id="text" placeholder="Enter or paste your text and press Summarize"></textarea>
+            
                             <input type="submit" value="Summarize">
+                           
                         </form>
+                        <div class="word-sentence-count" style="margin-top: 110px;">
+                            Words: <span id="word-count">0</span> | Sentences: <span id="sentence-count">0</span>
+                        </div>
                         <div class="loading-bar">
                             <div class="loading-bar-progress"></div>
                         </div>
                     </div>
                     <div class="output-container">
-                        <h2>Summary</h2>
                         <ul id="summary-text"></ul>
+                        <div class="word-count">
+                            Words: <span id="word-count-only">0</span> | Sentences: <span id="sentence-count-only">0</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <script>
-        // Theme Toggle
-        document.getElementById('themeToggle').addEventListener('change', function() {
-            document.documentElement.setAttribute('data-theme', this.checked ? 'dark' : 'light');
-        });
+            <section class="about-section  " style="padding: 6rem 12rem 6rem 160px; ">
+                <div style="max-width: 1400px; margin: 0 auto; ">
+                    <h2 class="section-title  " style="margin-left: 500px;">Empowering Truth in the Digital Age</h2>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; padding: 2rem;">
+                        <div style="display: flex; flex-direction: column; gap: 2rem;">
+                            <div style="padding: 2rem; border-radius: 1.5rem; box-shadow: var(--card-shadow);">
+                                <h3 style="font-size: 1.8rem; margin-bottom: 1rem; color: var(--text-color);">
+                                    <i class="fas fa-robot" style="color: var(--secondary-color); margin-right: 1rem;"></i>
+                                    Advanced AI Technology
+                                </h3>
+                                <p style="opacity: 0.8; line-height: 1.6; font-size: 1.1rem;">
+                                    TruthBot.AI leverages cutting-edge machine learning and natural language processing to analyze news content with unprecedented accuracy. Our algorithms are trained on vast datasets to detect patterns of misinformation and bias.
+                                </p>
+                            </div>
+                            
+                            <div style="padding: 2rem; border-radius: 1.5rem; box-shadow: var(--card-shadow);">
+                                <h3 style="font-size: 1.8rem; margin-bottom: 1rem; color: var(--text-color);">
+                                    <i class="fas fa-brain" style="color: var(--secondary-color); margin-right: 1rem;"></i>
+                                    Comprehensive Analysis
+                                </h3>
+                                <p style="opacity: 0.8; line-height: 1.6; font-size: 1.1rem;">
+                                    Our platform performs multi-layered analysis, examining content for factual accuracy, source credibility, emotional manipulation, and contextual relevance. We help users make informed decisions about the information they consume.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: center; align-items: center;">
+                            <svg viewBox="0 0 400 400" width="100%" height="auto" style="max-width: 500px;">
+                                <!-- Abstract brain network illustration -->
+                                <circle cx="200" cy="200" r="150" fill="none" stroke="var(--secondary-color)" stroke-width="2"/>
+                                <g style="opacity: 0.8;">
+                                    <!-- Neural network nodes -->
+                                    <circle cx="150" cy="150" r="10" fill="var(--secondary-color)"/>
+                                    <circle cx="250" cy="150" r="10" fill="var(--secondary-color)"/>
+                                    <circle cx="200" cy="250" r="10" fill="var(--secondary-color)"/>
+                                    <circle cx="150" cy="250" r="10" fill="var(--secondary-color)"/>
+                                    <circle cx="250" cy="250" r="10" fill="var(--secondary-color)"/>
+                                    
+                                    <!-- Connecting lines -->
+                                    <line x1="150" y1="150" x2="250" y2="150" stroke="var(--secondary-color)" stroke-width="2"/>
+                                    <line x1="150" y1="150" x2="200" y2="250" stroke="var(--secondary-color)" stroke-width="2"/>
+                                    <line x1="250" y1="150" x2="200" y2="250" stroke="var(--secondary-color)" stroke-width="2"/>
+                                    <line x1="150" y1="250" x2="250" y2="250" stroke="var(--secondary-color)" stroke-width="2"/>
+                                    
+                                    <!-- Animated pulse circles -->
+                                    <circle cx="200" cy="200" r="100" fill="none" stroke="var(--secondary-color)" stroke-width="1">
+                                        <animate attributeName="r" values="80;120;80" dur="4s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.1;0.3;0.1" dur="4s" repeatCount="indefinite"/>
+                                    </circle>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 4rem; padding: 2rem; border-radius: 1.5rem; box-shadow: var(--card-shadow);">
+                        <div style="display: flex; justify-content: space-around; text-align: center;">
+                            <div>
+                                <i class="fas fa-newspaper" style="font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
+                                <h4 style="color: var(--text-color); font-size: 1.2rem; margin-bottom: 0.5rem;">News Analyzed</h4>
+                                <p style="color: var(--text-color); font-size: 2rem; font-weight: bold;">100+</p>
+                            </div>
+                            <div>
+                                <i class="fas fa-users" style="font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
+                                <h4 style="color: var(--text-color); font-size: 1.2rem; margin-bottom: 0.5rem;">Active Users</h4>
+                                <p style="color: var(--text-color); font-size: 2rem; font-weight: bold;">10+</p>
+                            </div>
+                            <div>
+                                <i class="fas fa-check-circle" style="font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
+                                <h4 style="color: var(--text-color); font-size: 1.2rem; margin-bottom: 0.5rem;">Accuracy Rate</h4>
+                                <p style="color: var(--text-color); font-size: 2rem; font-weight: bold;">95%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        // Form Submission
-        $(document).ready(function() {
-            $('#summarize-form').on('submit', function(e) {
-                e.preventDefault();
-                $('.loading-bar').show();
-                $('#summary-text').empty();
-                
-                $.ajax({
-                    url: '/summarization',
-                    method: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        $('.loading-bar').hide();
-                        const summaryPoints = response.summary.split('. ');
-                        summaryPoints.forEach(point => {
-                            if (point.trim() !== '') {
-                                $('#summary-text').append(`<li>${point}.</li>`);
-                            }
-                        });
-                    },
-                    error: function() {
-                        $('.loading-bar').hide();
-                        alert('An error occurred while summarizing the text.');
+            <footer class="text-center text-lg-start">
+                <div class="container p-4">
+                    <div class="row">
+                        <!-- About Us Section -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <h5 class="text-uppercase">About Us</h5>
+                            <p>
+                                We provide cutting-edge solutions for analyzing news, web insights, sentiment
+                                analysis, and more.
+                            </p>
+                        </div>
+        
+                        <!-- Useful Links Section -->
+                        <div class="col-lg-4 col-md-6 mb-4 footer-links">
+                            <h5 class="text-uppercase">Useful Links</h5>
+                            <ul class="list-unstyled">
+                                <li><a href="#">Report</a></li>
+                                <li><a href="#">FakeNews Analysis</a></li>
+                                <li><a href="#">AI Plagiarism</a></li>
+                                <li><a href="#">Text Summarization</a></li>
+                                <li><a href="#">Sentiment Analysis</a></li>
+                            </ul>
+                        </div>
+        
+                        <!-- Contact Section -->
+                        <div class="col-lg-4 col-md-12 mb-4">
+                            <h5 class="text-uppercase">Contact</h5>
+                            <p><i class="fas fa-map-marker-alt"></i> 1234 Street, City, Country</p>
+                            <p><i class="fas fa-envelope"></i> email@example.com</p>
+                            <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Footer Bottom -->
+                <div class="p-3">
+                    © 2024 TruthBot | Design by PB
+        
+                </div>
+            </footer>
+
+            <script>
+                // Theme Toggle
+                document.getElementById('themeToggle').addEventListener('change', function () {
+                    document.documentElement.setAttribute('data-theme', this.checked ? 'dark' : 'light');
+                });
+
+                $(document).ready(function () {
+    $('#summarize-form').on('submit', function (e) {
+        e.preventDefault();
+        $('.loading-bar').show();
+        $('#summary-text').empty();
+
+        $.ajax({
+            url: '/summarization',
+            method: 'POST',
+            data: $(this).serialize(),
+            success: function (response) {
+                $('.loading-bar').hide();
+                const summaryPoints = response.summary.split('. ');
+                summaryPoints.forEach(point => {
+                    if (point.trim() !== '') {
+                        $('#summary-text').append(`<li>${point}.</li>`);
                     }
                 });
-            });
+                updateOutputCounts(response.summary); // Update counts after summarization
+            },
+            error: function () {
+                $('.loading-bar').hide();
+                alert('An error occurred while summarizing the text.');
+            }
         });
-    </script>
+    });
+});
+
+const textInput = document.getElementById('text');
+const wordCountDisplay = document.getElementById('word-count');
+const wordCountOnlyDisplay = document.getElementById('word-count-only');
+const sentenceCountDisplay = document.getElementById('sentence-count');
+const sentenceCountOnlyDisplay = document.getElementById('sentence-count-only');
+
+textInput.addEventListener('input', () => {
+    const text = textInput.value.trim();
+    updateInputCounts(text);
+});
+
+// Function to update input counts
+function updateInputCounts(text) {
+    const words = text.split(/\s+/).filter(word => word.length > 0);
+    const wordCount = words.length;
+    const sentences = text.split(/[.!?]+(\s|$)/).filter(sentence => sentence.trim().length > 0);
+    const sentenceCount = sentences.length;
+
+    wordCountDisplay.textContent = wordCount;
+    sentenceCountDisplay.textContent = sentenceCount;
+}
+
+// Function to update output counts
+function updateOutputCounts(summaryText) {
+    const words = summaryText.split(/\s+/).filter(word => word.length > 0);
+    const wordCount = words.length;
+    const sentences = summaryText.split(/[.!?]+(\s|$)/).filter(sentence => sentence.trim().length > 0);
+    const sentenceCount = sentences.length;
+
+    wordCountOnlyDisplay.textContent = wordCount;
+    sentenceCountOnlyDisplay.textContent = sentenceCount;
+}
+                document.getElementById('text').addEventListener('input', function () {
+                    const pasteIcon = document.querySelector('.paste-icon');
+                    if (this.value.trim() !== '') {
+                        pasteIcon.style.display = 'none';
+                    } else {
+                        pasteIcon.style.display = 'inline';
+                    }
+                });
+
+                // Clear input and output content when the trash icon is clicked
+                function deleteContent() {
+                    const textArea = document.getElementById('text');
+                    textArea.value = '';
+
+                    document.getElementById('summary-text').innerHTML = '';
+                    document.getElementById('word-count').innerText = '0';
+                    document.getElementById('sentence-count').innerText = '0';
+                    document.getElementById('word-count-only').innerText='0';
+                    document.getElementById('sentence-count-only').innerText='0';
+                    // Show the paste icon again after clearing the content
+                    document.querySelector('.paste-icon').style.display = 'inline';
+                }
+            </script>
 </body>
+
 </html>

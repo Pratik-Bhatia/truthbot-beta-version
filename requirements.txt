@@ -1,2 +1,5 @@
 flask
 huggingface-hub
+cmd to run :
+myenv/Scripts/activate
+python app.py

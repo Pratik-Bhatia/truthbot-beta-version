@@ -7,9 +7,6 @@ fetch("navbar.html")
     .catch(error => console.error("Error loading navbar:", error));
 
 
-
-
-
 const toggleSwitch = document.getElementById('themeToggle');
 const body = document.body;
 
