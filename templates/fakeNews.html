@@ -1,226 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< Updated upstream
-    <title>TruthBot</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <style>
-        :root {
-            --primary-color: #FFFFFF;
-            --secondary-color: #007BFF;
-            --background-color: #F0F0F0;
-            --text-color: #333333;
-            --card-bg: rgba(255, 255, 255, 0.9);
-            --team-bg: #F8F9FA;
-            --positive-color: #4CAF50;
-            --negative-color: #ff4d4d;
-            --neutral-color: #FF5733;
-        }
-
-        [data-theme="dark"] {
-            --primary-color: #1A1A1A;
-            --secondary-color: #33ff8f;
-            --background-color: #121212;
-            --text-color: #EAEAEA;
-            --card-bg: rgba(40, 40, 40, 0.9);
-            --team-bg: #1A1A1A;
-            --positive-color: #4CAF50;
-            --negative-color: #ff4d4d;
-            --neutral-color: #FF6F61;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        .sidebar {
-            height: 100vh;
-            background-color: var(--card-bg);
-            margin-top: 20px; /* Add margin to push it down */
-            width: 10vw;
-            border-right: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-item {
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        .nav-item a {
-            color: var(--text-color);
-            text-decoration: none;
-            padding: 10px;
-            display: block;
-        }
-
-        .active {
-            background-color: #BCC4D2;
-             background-color: rgba(0, 123, 255, 0.5); /* Translucent blue background */
-            border-radius: 5px;
-        }
-        .active a {
-            color: white !important;
-        }
-
-        .content-area {
-            background-color: var(--background-color);
-            border-radius: 8px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 20px auto;
-            margin-top: 20px; /* Add margin to push it down */
-        }
-
-        .flex-container {
-            display: flex;
-            gap: 20px;
-        }
-
-        .input-container,
-        .output-container {
-            flex: 1;
-            padding: 20px;
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .input-container h1 {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--text-color);
-        }
-
-        .input-container textarea {
-            width: 100%;
-            height: 300px;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid var(--background-color);
-            border-radius: 4px;
-            font-size: 1rem;
-            resize: vertical;
-            background-color: var(--background-color);
-            color: var(--text-color);
-        }
-
-        .input-container input[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            font-size: 1rem;
-            font-weight: bold;
-            background-color: #4CAF50; /* Green background color */
-            color: white; /* White text color */
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 1rem;
-        }
-
-        .input-container input[type="submit"]:hover {
-            background-color: #45a049; /* Darker green on hover */
-            opacity: 0.9; /* Slightly reduce opacity on hover */
-        }
-
-        .loading-bar {
-            width: 100%;
-            height: 4px;
-            background-color: var(--background-color);
-            overflow: hidden;
-            display: none;
-            margin-bottom: 1rem;
-        }
-
-        .loading-bar-progress {
-            width: 0;
-            height: 100%;
-            background-color: var(--secondary-color);
-            animation: loading 2s infinite ease-in-out;
-        }
-
-        @keyframes loading {
-            0% { width: 0; }
-            50% { width: 100%; }
-            100% { width: 0; }
-        }
-
-        #summary-text {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        #summary-text li {
-            margin-bottom: 0.5rem;
-            position: relative;
-            padding-left: 1.5rem;
-            color: var(--text-color);
-        }
-
-        #summary-text li::before {
-            content: "\2022";
-            color: var(--secondary-color);
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 34px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background-color: var(--secondary-color);
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(26px);
-        }
-
-        @media (max-width: 768px) {
-            .flex-container {
-                flex-direction: column;
-            }
-=======
     <a href="/templates/index.html">
         <title>TruthBot</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -228,7 +11,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="../static/style.css">
         <style>
->>>>>>> Stashed changes
             .sidebar {
                 height: 100vh;
                 background-color: var(--primary-color);
@@ -238,8 +20,6 @@
                 z-index: 1000;
 
             }
-<<<<<<< Updated upstream
-=======
 
             .nav-item {
                 margin-top: 10px;
@@ -263,7 +43,6 @@
             }
 
 
->>>>>>> Stashed changes
             .content-area {
                 background-color: var(--background-color);
                 border-radius: 8px;
@@ -523,22 +302,15 @@
            
         </style>
 </head>
-<<<<<<< Updated upstream
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light border-bottom border-1">
-        <div class="container-fluid">
-            <a class="navbar-brand justify-content-center " href="/">
-                <img src="../static/logo/logo.jpg" alt="Avatar Logo" style="width:150px;">
-=======
 
 <body class="light-mode">
     <nav class="navbar sticky-top navbar-expand-lg navbar-light border-bottom border-1">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
                 <img src="../static/logo/logo2.png" alt="Avatar Logo" style="width:150px; margin-left: 10px;">
->>>>>>> Stashed changes
             </a>
             <div class="collapse navbar-collapse justify-content-end">
+                <!-- Toggle Switch -->
                 <label class="switch">
                     <input type="checkbox" id="themeToggle">
                     <span class="slider"></span>
@@ -546,14 +318,10 @@
             </div>
         </div>
     </nav>
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2 sidebar">
                 <ul class="nav flex-column">
-<<<<<<< Updated upstream
-                    <li class="nav-item">
-=======
 
                     <li class="nav-item" style="font-size: larger;">
                         <a class="nav-link" href="#" style=" color:var(--sidebar-inactive-text-color)">
@@ -562,43 +330,38 @@
                         </a>
                     </li>
                     <li class="nav-item" style="font-size: larger;">
-                        <a class="nav-link" href="../templates/fakeNews.html" style=" color:var(--sidebar-inactive-text-color)">
-                            <i class="fas fa-search"></i>
+                        <a class="nav-link active" href="../templates/fakeNews.html">
+                            <i class="fas fa-search fa-65x"></i>
                             Fake Detection
                         </a>
                     </li>
                     <li class="nav-item" style="font-size: larger;">
->>>>>>> Stashed changes
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link " href="#" style=" color:var(--sidebar-inactive-text-color)">
                             <i class="fas fa-file-alt"></i>
                             Summarizer
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-check-circle"></i>
-                            Grammar Checker
+                    <li class="nav-item" style="font-size: larger;">
+                        <a class="nav-link" href="#" style=" color:var(--sidebar-inactive-text-color)">
+                            <i class="fas fa-chart-bar"></i>
+                            Sentiment Analysis
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-robot"></i>
-                            AI Detector
+                    <li class="nav-item" style="font-size: larger;">
+                        <a class="nav-link" href="#" style=" color:var(--sidebar-inactive-text-color)">
+                            <i class="fas fa-check-circle "></i>
+                            Plagiarism Check
+                        </a>
+                    </li>
+                    <li class="nav-item" style="font-size: larger;">
+                        <a class="nav-link" href="#" style=" color:var(--sidebar-inactive-text-color)">
+                            <i class="fa-brands fa-flickr"></i>
+                            ClickBait Tool
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="col-md-10 content-area">
-<<<<<<< Updated upstream
-                <div class="flex-container">
-                    <div class="input-container">
-                        <h1>News Summarizer</h1>
-                        <p>Enter a news article to summarize</p>
-                        <form id="summarize-form">
-                            <label for="text">Enter your text:</label>
-                            <textarea name="text" id="text" required></textarea>
-                            <input type="submit" value="Summarize">
-=======
                 <div class="put-container">
                     <div class="trash-icon">
                         <i class="fa-solid fa-trash" onclick="deleteContent()" style="font-size: 24px;"></i>
@@ -617,125 +380,26 @@
 
                             <input type="submit" value="Summarize">
 
->>>>>>> Stashed changes
                         </form>
+                        <div class="word-sentence-count" style="margin-top: 110px;">
+                            Words: <span id="word-count">0</span> | Sentences: <span id="sentence-count">0</span>
+                        </div>
                         <div class="loading-bar">
                             <div class="loading-bar-progress"></div>
                         </div>
                     </div>
                     <div class="output-container">
-                        <h2>Summary</h2>
                         <ul id="summary-text"></ul>
-<<<<<<< Updated upstream
-=======
                         <div class="word-count">
                             Words: <span id="word-count-only">0</span> | Sentences: <span
                                 id="sentence-count-only">0</span>
                         </div>
->>>>>>> Stashed changes
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-<<<<<<< Updated upstream
-    <script>
-        // Theme Toggle
-        document.getElementById('themeToggle').addEventListener('change', function() {
-            document.documentElement.setAttribute('data-theme', this.checked ? 'dark' : 'light');
-        });
-
-        // Form Submission
-        $(document).ready(function() {
-            $('#summarize-form').on('submit', function(e) {
-                e.preventDefault();
-                $('.loading-bar').show();
-                $('#summary-text').empty();
-                
-                $.ajax({
-                    url: '/summarization',
-                    method: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        $('.loading-bar').hide();
-                        const summaryPoints = response.summary.split('. ');
-                        summaryPoints.forEach(point => {
-                            if (point.trim() !== '') {
-                                $('#summary-text').append(`<li>${point}.</li>`);
-                            }
-                        });
-                    },
-                    error: function() {
-                        $('.loading-bar').hide();
-                        alert('An error occurred while summarizing the text.');
-                    }
-                });
-            });
-        });
-    </script>
-=======
-
-            <section class="container " style="width: 60vw; margin-right: 300px;color: var( --sidebar-active-text-color); " >
-                <div class="row justify-content-center gap-4 " style="margin: 60px;">
-                    <div   class="fs-1 " style=" text-align: center;">
-                        What can you do with our Summarizer tool?
-                    </div>
-                    <div class="col-2" style="background-color: #7697ce4b; padding: 20px;margin-top: 50px; border: #7697ce4b 1px solid; border-radius: 10px; width: 250px;">
-                        <div class="what-can-icon" style="padding-top: 10px;"  >
-                            <i class="fa-solid fa-check fs-2" style="color: #04006a;" ></i>
-                        </div>
-                        <div class="what-can-text fw-bolder"  style="padding-top: 10px; font-size: 20px;" >
-                            Simplify Text
-                        </div>
-                        <div class="what-can-description " style="padding-top: 10px;" >
-                            Make complex information simpler
-                        </div>
 
 
-                    </div>
-                    <div class="col-2" style="background-color: #7697ce4b; padding: 20px;margin-top: 50px; border: #7697ce4b 1px solid; border-radius: 10px; width: 250px;">
-                        <div class="what-can-icon" style="padding-top: 10px;"  >
-                            <i class="fa-solid fa-check fs-2" style="color: #04006a;" ></i>
-                        </div>
-                        <div class="what-can-text fw-bolder"  style="padding-top: 10px; font-size: 20px;" >
-                            Simplify Text
-                        </div>
-                        <div class="what-can-description " style="padding-top: 10px;" >
-                            Make complex information simpler
-                        </div>
-
-
-                    </div>
-                    <div class="col-2" style="background-color: #7697ce4b; padding: 20px;margin-top: 50px; border: #7697ce4b 1px solid; border-radius: 10px; width: 250px;">
-                        <div class="what-can-icon" style="padding-top: 10px;"  >
-                            <i class="fa-solid fa-check fs-2" style="color: #04006a;" ></i>
-                        </div>
-                        <div class="what-can-text fw-bolder"  style="padding-top: 10px; font-size: 20px;" >
-                            Simplify Text
-                        </div>
-                        <div class="what-can-description " style="padding-top: 10px;" >
-                            Make complex information simpler
-                        </div>
-
-
-                    </div>
-                    <div class="col-2" style="background-color: #7697ce4b; padding: 20px;margin-top: 50px; border: #7697ce4b 1px solid; border-radius: 10px; width: 250px;">
-                        <div class="what-can-icon" style="padding-top: 10px;"  >
-                            <i class="fa-solid fa-check fs-2" style="color: #04006a;" ></i>
-                        </div>
-                        <div class="what-can-text fw-bolder"  style="padding-top: 10px; font-size: 20px;" >
-                            Simplify Text
-                        </div>
-                        <div class="what-can-description " style="padding-top: 10px;" >
-                            Make complex information simpler
-                        </div>
-
-
-                    </div>
-                </div>
-
-            </section>
+           
 
           
 </div>
@@ -878,6 +542,6 @@
                 crossorigin="anonymous">
                 </script>
             <script src="../static/index.js"></script>
->>>>>>> Stashed changes
 </body>
+
 </html>

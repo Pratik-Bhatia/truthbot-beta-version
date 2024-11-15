@@ -1,4 +1,5 @@
 :root {
+<<<<<<< Updated upstream
     --primary-color: #2196F3;
     --secondary-color: #6c757d;
     --background-light: #f5f5f5;
@@ -10,6 +11,26 @@
     --shadow-color: rgba(0, 0, 0, 0.2);
     --slider-bg: #ccc;
     --slider-thumb: #ffffff;
+=======
+    --primary-color: #133E87; /* Dark Blue */
+    --secondary-color: #608BC1; /* Muted Teal */
+    --background-light: #F3F3E0; /* Soft Off-White */
+    --background-dark: #CBDCEB; /* Light Blue */
+    --text-light: #F3F3E0; /* Light color for text on dark backgrounds */
+    --text-dark: #133E87; /* Dark Blue for text on light backgrounds */
+    --box-border-color: #608BC1; /* Muted Teal for box borders */
+    --box-border-hover: #CBDCEB; /* Light Blue on hover */
+    --shadow-color: rgba(19, 62, 135, 0.2); /* Shadow in dark blue */
+    --slider-bg: #608BC1; /* Muted teal for slider background */
+    --slider-thumb: #CBDCEB; /* Light blue for slider thumb */
+    --text-color: #133E87; /* General text color */
+    --card-shadow: 0 8px 32px rgba(19, 62, 135, 0.1); /* Subtle card shadow */
+    --hover-shadow: 0 12px 40px rgba(96, 139, 193, 0.15); /* Hover shadow in muted teal */
+    --sidebar-inactive-text-color: #FCDF77;
+    --sidebar-active-text-color: #222A49;
+    --what-can-summerizer:#133E87;
+    --what-can-summerizer-icon:#FCDF77;
+>>>>>>> Stashed changes
 }
 
 
@@ -194,7 +215,7 @@ footer {
 }
 
 .footer-links a {
-    color: var(--text-dark);
+  color: black;
     text-decoration: none;
 }
 
