@@ -35,7 +35,11 @@ def index():
             return render_template("summarizer.html", summary=summary)
 
     return render_template("summarizer.html", summary="")
-
-
+@app.route("/fakenews",methods=["GET", "POST"])
+def fakenews():
+    return render_template("fakeNews.html")
+@app.route("/plagiarism",methods=["GET", "POST"])
+def plagiarism():
+    return render_template("plagiarism.html")
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000,debug=True)
